@@ -15,6 +15,9 @@ from langchain.document_loaders import TextLoader
 # The LangChain component we'll use to get the documents - way we'll retrieve vectors
 from langchain.chains import RetrievalQA
 
+# other modules
+import datetime
+
 
 
 
@@ -28,7 +31,8 @@ llm = ChatOpenAI(model_name='gpt-4', openai_api_key=openai_api_key)
 embeddings = OpenAIEmbeddings(disallowed_special=(), openai_api_key=openai_api_key)
 
 # loading the documentation - for now, this is the variable we manually change to query against different documentations
-root_dir = 'documentations/nitter_scraper-master'
+library_name = "nitter_scraper-master"
+root_dir = f'documentations/{library_name}'
 docs = []
 
 # Go through each folder
@@ -60,6 +64,10 @@ print(output)
 
 # write output messages into output files;
 
+results_path = f'results/{library_name}.txt'
+with open(results_path, 'a') as f:
+    f.write(f"\n\n----{datetime.datetime.now()}----\n")
+    f.write(output)
 
 
 

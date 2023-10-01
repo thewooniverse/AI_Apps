@@ -1,0 +1,38 @@
+
+
+----2023-10-01 15:46:54.201779----
+Here is a sample code snippet based on the documentation that you can use to scrape Twitter profiles using Nitter. Please note that Nitter does not provide account creation dates. 
+
+```python
+from pprint import pprint
+import nitter_scraper
+from nitter_scraper import NitterScraper
+
+# Replace 'dgnsrekt' with the username of the profile you want to scrape
+users = ["dgnsrekt"]
+
+# Scrape with local nitter docker instance
+print("Scraping with local nitter docker instance.")
+with NitterScraper(host="0.0.0.0", port=8008) as nitter:
+    for user in users:
+        profile = nitter.get_profile(user, not_found_ok=True)
+        if profile:
+            print(f"Username: {profile.username}")
+            print(f"User ID: {profile.user_id}")
+            print(f"Number of tweets: {profile.tweets_count}")
+            print(f"Number of followers: {profile.followers_count}")
+            print(f"Number of following: {profile.following_count}")
+
+# Scrape from https://www.nitter.net
+print("Scraping from https://www.nitter.net.")
+for user in users:
+    profile = nitter_scraper.get_profile(user, not_found_ok=True)
+    if profile:
+        print(f"Username: {profile.username}")
+        print(f"User ID: {profile.user_id}")
+        print(f"Number of tweets: {profile.tweets_count}")
+        print(f"Number of followers: {profile.followers_count}")
+        print(f"Number of following: {profile.following_count}")
+```
+
+Make sure to replace 'dgnsrekt' with the Twitter username of the profile you want to scrape. Please note that this code may not work if the target account is private or if the user does not have a banner photo (as the user_id cannot be scraped from the tweets).
