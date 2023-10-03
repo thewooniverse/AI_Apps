@@ -1,0 +1,45 @@
+
+
+----2023-10-02 11:40:58.035455----
+Based on the documentation, you can use the `get_profile_info` function from the `Nitter` class to scrape Twitter profiles. Below is a simple code snippet demonstrating how you can do this:
+
+```python
+from ntscraper import Nitter
+
+# Initialize the Nitter scraper
+scraper = Nitter(log_level=1)
+
+# Get the profile information
+profile_info = scraper.get_profile_info("your_target_username")
+
+# Print the desired information
+print("Name: ", profile_info['name'])
+print("Username: ", profile_info['username'])
+print("Number of tweets (posts): ", profile_info['stats']['tweets'])
+print("Number of followers: ", profile_info['stats']['followers'])
+print("Number of accounts following: ", profile_info['stats']['following'])
+print("Account creation date: ", profile_info['joined'])
+```
+
+You need to replace `"your_target_username"` with the username of the Twitter account you want to scrape. Note that this method will not give you the account ID as it's not mentioned in the documentation that the library provides such information.
+
+----2023-10-02 12:19:55.049835----
+1.) To specify the instance of Nitter you want to use, you can pass it as an argument in the 'instance' parameter when calling the scraping functions. For example:
+
+```python
+bezos_tweets = scraper.get_tweets("JeffBezos", mode='user', instance='your_desired_instance')
+```
+
+or when getting profile information:
+
+```python
+bezos_information = scraper.get_profile_info("JeffBezos", instance='your_desired_instance')
+```
+
+2.) From the provided context, it seems that the 'get_profile_info' function returns a dictionary of the profile's information. However, it's not clear if this dictionary includes the user ID as it's not explicitly mentioned in the test cases. You might need to check the returned dictionary's keys or the function's documentation for more details.
+
+----2023-10-02 12:22:26.501430----
+No, based on the provided context, the user profile is scraped using their username, not their userid. The function `get_profile_info` accepts a username as a parameter to scrape the profile information. There is no mention of using a userid for scraping user profiles.
+
+----2023-10-02 12:23:07.050777----
+I'm sorry, but the provided context doesn't contain any information about Joseph Mourinho.

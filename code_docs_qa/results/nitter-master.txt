@@ -1,0 +1,88 @@
+
+
+----2023-10-02 11:46:07.295969----
+To set up your own instance of Nitter, follow these steps:
+
+1. First, create a new user named `nitter`:
+```bash
+# useradd -m nitter
+# su nitter
+```
+
+2. Clone the Nitter repository:
+```bash
+$ git clone https://github.com/zedeus/nitter
+$ cd nitter
+```
+
+3. Build the project along with the scss and md files:
+```bash
+$ nimble build -d:release
+$ nimble scss
+$ nimble md
+```
+
+4. Copy the example configuration file to create your own configuration:
+```bash
+$ cp nitter.example.conf nitter.conf
+```
+
+5. Edit the `nitter.conf` file to set your hostname, port, HMAC key, https, and Redis info.
+
+6. To run Redis, you can use either of these commands:
+```bash
+redis-server --daemonize yes
+```
+or 
+```bash
+systemctl enable --now redis
+```
+
+7. Finally, run Nitter by executing `./nitter`.
+
+Note: It's recommended to run Nitter behind a reverse proxy such as Nginx or Apache for security and performance reasons. 
+
+For Docker setup, you can follow the Docker instructions provided. Furthermore, there is also a systemd service file provided to run Nitter via systemd. Make sure to replace any necessary fields in the service file to fit your setup.
+
+
+
+
+
+
+----2023-10-02 14:45:38.499616----
+To set up your own Nitter instance using Docker on macOS, follow these steps:
+
+1. First, make sure you have Docker installed on your system. If not, you can download it from the Docker website.
+
+2. Clone the Nitter repository by running the following command in your terminal:
+```bash
+git clone https://github.com/zedeus/nitter
+```
+
+3. Navigate to the cloned Nitter directory:
+```bash
+cd nitter
+```
+
+4. Copy the configuration file:
+```bash
+cp nitter.example.conf nitter.conf
+```
+
+5. Edit the `nitter.conf` file to set your hostname, port, HMAC key, https, and Redis information.
+
+6. Build the Docker image:
+```bash
+docker build -t nitter:latest .
+```
+
+7. Run the Docker container:
+```bash
+docker run -v $(pwd)/nitter.conf:/src/nitter.conf -d --network host nitter:latest
+```
+
+Note: If you have an ARM64 system, you should use the Dockerfile for ARM64 and the separate ARM64 Docker image as stated in the context.
+
+You will also need to run Redis separately before you can run the Nitter container. You can do this using Docker as well. Just ensure that you correctly configure the Redis information in `nitter.conf`.
+
+If you prefer to use Docker Compose, you can run both Nitter and Redis as different containers. Change `redisHost` from `localhost` to `nitter-redis` in `nitter.conf`, then run `docker-compose up -d`.

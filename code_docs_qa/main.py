@@ -31,7 +31,7 @@ llm = ChatOpenAI(model_name='gpt-4', openai_api_key=openai_api_key)
 embeddings = OpenAIEmbeddings(disallowed_special=(), openai_api_key=openai_api_key)
 
 # loading the documentation - for now, this is the variable we manually change to query against different documentations
-library_name = "nitter_scraper-master"
+library_name = "langchain-master"
 root_dir = f'documentations/{library_name}'
 docs = []
 
@@ -58,7 +58,7 @@ docsearch = FAISS.from_documents(docs, embeddings)
 qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=docsearch.as_retriever())
 
 
-query = "How can I use Nitter to scrape Twitter profiles (# of follwers, # of accounts following, # of posts, account creation date, accountid) - please write me a sample code I can readily use based on documentations"
+query = "Give me the basics of Langchain, and specifically, give me the basics of the RetrievalQA chain"
 output = qa.run(query)
 print(output)
 
@@ -68,6 +68,7 @@ results_path = f'results/{library_name}.txt'
 with open(results_path, 'a') as f:
     f.write(f"\n\n----{datetime.datetime.now()}----\n")
     f.write(output)
+    f.write("\n\n\n\n\n")
 
 
 
